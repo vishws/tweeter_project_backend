@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="de09c4b4a09c464b840ebff94eba39d1" Name="Diagram1">
+        <EntityTypeShape EntityType="dell_trainingModel3.Comment" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dell_trainingModel3.Employeemaster" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dell_trainingModel3.Like" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dell_trainingModel3.Retweet" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dell_trainingModel3.Tweet" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="dell_trainingModel3.UserProfile" Width="1.5" PointX="3" PointY="18.25" IsExpanded="true" />
+        <AssociationConnector Association="dell_trainingModel3.FK__Comment__TweetID__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="dell_trainingModel3.FK__Comment__UserID__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="dell_trainingModel3.FK__Likes__UserID__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="dell_trainingModel3.FK__Retweet__UserID__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="dell_trainingModel3.FK__Tweet__UserID__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="dell_trainingModel3.FK__UserProfi__UserI__04E4BC85" ManuallyRouted="false" />
+        <AssociationConnector Association="dell_trainingModel3.FK__Likes__TweetID__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="dell_trainingModel3.FK__Retweet__TweetID__00200768" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

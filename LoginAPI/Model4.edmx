@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dell_trainingModel3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="TweetID" Type="int" />
+          <Property Name="Content" Type="nvarchar" MaxLength="280" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Employeemaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="15" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Likes">
+          <Key>
+            <PropertyRef Name="LikeID" />
+          </Key>
+          <Property Name="LikeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="TweetID" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Retweet">
+          <Key>
+            <PropertyRef Name="RetweetID" />
+          </Key>
+          <Property Name="RetweetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="TweetID" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tweet">
+          <Key>
+            <PropertyRef Name="TweetID" />
+          </Key>
+          <Property Name="TweetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Content" Type="nvarchar" MaxLength="280" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="Profileid" />
+          </Key>
+          <Property Name="Profileid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProfilePictureURL" Type="nvarchar" MaxLength="255" />
+          <Property Name="Bio" Type="nvarchar" MaxLength="255" />
+          <Property Name="FollowerCount" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Comment__TweetID__7B5B524B">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="TweetID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__UserID__02084FDA">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Likes__TweetID__76969D2E">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="TweetID" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Likes__UserID__02FC7413">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Retweet__TweetID__00200768">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Retweet" Type="Self.Retweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="TweetID" />
+            </Principal>
+            <Dependent Role="Retweet">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Retweet__UserID__01142BA1">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="Retweet" Type="Self.Retweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Retweet">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tweet__UserID__03F0984C">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Tweet">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__UserI__04E4BC85">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dell_trainingModel3StoreContainer">
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employeemaster" EntityType="Self.Employeemaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Retweet" EntityType="Self.Retweet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tweet" EntityType="Self.Tweet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comment__TweetID__7B5B524B" Association="Self.FK__Comment__TweetID__7B5B524B">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__UserID__02084FDA" Association="Self.FK__Comment__UserID__02084FDA">
+            <End Role="Employeemaster" EntitySet="Employeemaster" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Likes__TweetID__76969D2E" Association="Self.FK__Likes__TweetID__76969D2E">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Likes__UserID__02FC7413" Association="Self.FK__Likes__UserID__02FC7413">
+            <End Role="Employeemaster" EntitySet="Employeemaster" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Retweet__TweetID__00200768" Association="Self.FK__Retweet__TweetID__00200768">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Retweet" EntitySet="Retweet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Retweet__UserID__01142BA1" Association="Self.FK__Retweet__UserID__01142BA1">
+            <End Role="Employeemaster" EntitySet="Employeemaster" />
+            <End Role="Retweet" EntitySet="Retweet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tweet__UserID__03F0984C" Association="Self.FK__Tweet__UserID__03F0984C">
+            <End Role="Employeemaster" EntitySet="Employeemaster" />
+            <End Role="Tweet" EntitySet="Tweet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__UserI__04E4BC85" Association="Self.FK__UserProfi__UserI__04E4BC85">
+            <End Role="Employeemaster" EntitySet="Employeemaster" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dell_trainingModel3" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="TweetID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="280" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tweet" Relationship="Self.FK__Comment__TweetID__7B5B524B" FromRole="Comment" ToRole="Tweet" />
+          <NavigationProperty Name="Employeemaster" Relationship="Self.FK__Comment__UserID__02084FDA" FromRole="Comment" ToRole="Employeemaster" />
+        </EntityType>
+        <EntityType Name="Employeemaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__UserID__02084FDA" FromRole="Employeemaster" ToRole="Comment" />
+          <NavigationProperty Name="Likes" Relationship="Self.FK__Likes__UserID__02FC7413" FromRole="Employeemaster" ToRole="Likes" />
+          <NavigationProperty Name="Retweets" Relationship="Self.FK__Retweet__UserID__01142BA1" FromRole="Employeemaster" ToRole="Retweet" />
+          <NavigationProperty Name="Tweets" Relationship="Self.FK__Tweet__UserID__03F0984C" FromRole="Employeemaster" ToRole="Tweet" />
+          <NavigationProperty Name="UserProfiles" Relationship="Self.FK__UserProfi__UserI__04E4BC85" FromRole="Employeemaster" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="LikeID" />
+          </Key>
+          <Property Name="LikeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="TweetID" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employeemaster" Relationship="Self.FK__Likes__UserID__02FC7413" FromRole="Likes" ToRole="Employeemaster" />
+          <NavigationProperty Name="Tweet" Relationship="Self.FK__Likes__TweetID__76969D2E" FromRole="Likes" ToRole="Tweet" />
+        </EntityType>
+        <EntityType Name="Retweet">
+          <Key>
+            <PropertyRef Name="RetweetID" />
+          </Key>
+          <Property Name="RetweetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="TweetID" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employeemaster" Relationship="Self.FK__Retweet__UserID__01142BA1" FromRole="Retweet" ToRole="Employeemaster" />
+          <NavigationProperty Name="Tweet" Relationship="Self.FK__Retweet__TweetID__00200768" FromRole="Retweet" ToRole="Tweet" />
+        </EntityType>
+        <EntityType Name="Tweet">
+          <Key>
+            <PropertyRef Name="TweetID" />
+          </Key>
+          <Property Name="TweetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="280" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__TweetID__7B5B524B" FromRole="Tweet" ToRole="Comment" />
+          <NavigationProperty Name="Employeemaster" Relationship="Self.FK__Tweet__UserID__03F0984C" FromRole="Tweet" ToRole="Employeemaster" />
+          <NavigationProperty Name="Likes" Relationship="Self.FK__Likes__TweetID__76969D2E" FromRole="Tweet" ToRole="Likes" />
+          <NavigationProperty Name="Retweets" Relationship="Self.FK__Retweet__TweetID__00200768" FromRole="Tweet" ToRole="Retweet" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="Profileid" />
+          </Key>
+          <Property Name="Profileid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfilePictureURL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Bio" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FollowerCount" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Employeemaster" Relationship="Self.FK__UserProfi__UserI__04E4BC85" FromRole="UserProfile" ToRole="Employeemaster" />
+        </EntityType>
+        <Association Name="FK__Comment__TweetID__7B5B524B">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="TweetID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__UserID__02084FDA">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Likes__UserID__02FC7413">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="Likes" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Retweet__UserID__01142BA1">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="Retweet" Type="Self.Retweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Retweet">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tweet__UserID__03F0984C">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Tweet">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__UserI__04E4BC85">
+          <End Role="Employeemaster" Type="Self.Employeemaster" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employeemaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Likes__TweetID__76969D2E">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Likes" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="TweetID" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Retweet__TweetID__00200768">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Retweet" Type="Self.Retweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="TweetID" />
+            </Principal>
+            <Dependent Role="Retweet">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dell_trainingEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Employeemasters" EntityType="Self.Employeemaster" />
+          <EntitySet Name="Likes" EntityType="Self.Like" />
+          <EntitySet Name="Retweets" EntityType="Self.Retweet" />
+          <EntitySet Name="Tweets" EntityType="Self.Tweet" />
+          <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+          <AssociationSet Name="FK__Comment__TweetID__7B5B524B" Association="Self.FK__Comment__TweetID__7B5B524B">
+            <End Role="Tweet" EntitySet="Tweets" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__UserID__02084FDA" Association="Self.FK__Comment__UserID__02084FDA">
+            <End Role="Employeemaster" EntitySet="Employeemasters" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Likes__UserID__02FC7413" Association="Self.FK__Likes__UserID__02FC7413">
+            <End Role="Employeemaster" EntitySet="Employeemasters" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Retweet__UserID__01142BA1" Association="Self.FK__Retweet__UserID__01142BA1">
+            <End Role="Employeemaster" EntitySet="Employeemasters" />
+            <End Role="Retweet" EntitySet="Retweets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tweet__UserID__03F0984C" Association="Self.FK__Tweet__UserID__03F0984C">
+            <End Role="Employeemaster" EntitySet="Employeemasters" />
+            <End Role="Tweet" EntitySet="Tweets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__UserI__04E4BC85" Association="Self.FK__UserProfi__UserI__04E4BC85">
+            <End Role="Employeemaster" EntitySet="Employeemasters" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Likes__TweetID__76969D2E" Association="Self.FK__Likes__TweetID__76969D2E">
+            <End Role="Tweet" EntitySet="Tweets" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Retweet__TweetID__00200768" Association="Self.FK__Retweet__TweetID__00200768">
+            <End Role="Tweet" EntitySet="Tweets" />
+            <End Role="Retweet" EntitySet="Retweets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dell_trainingModel3StoreContainer" CdmEntityContainer="dell_trainingEntities3">
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="dell_trainingModel3.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employeemasters">
+            <EntityTypeMapping TypeName="dell_trainingModel3.Employeemaster">
+              <MappingFragment StoreEntitySet="Employeemaster">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Likes">
+            <EntityTypeMapping TypeName="dell_trainingModel3.Like">
+              <MappingFragment StoreEntitySet="Likes">
+                <ScalarProperty Name="LikeID" ColumnName="LikeID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Retweets">
+            <EntityTypeMapping TypeName="dell_trainingModel3.Retweet">
+              <MappingFragment StoreEntitySet="Retweet">
+                <ScalarProperty Name="RetweetID" ColumnName="RetweetID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tweets">
+            <EntityTypeMapping TypeName="dell_trainingModel3.Tweet">
+              <MappingFragment StoreEntitySet="Tweet">
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="dell_trainingModel3.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="Profileid" ColumnName="Profileid" />
+                <ScalarProperty Name="ProfilePictureURL" ColumnName="ProfilePictureURL" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+                <ScalarProperty Name="FollowerCount" ColumnName="FollowerCount" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
