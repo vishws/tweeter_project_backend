@@ -1,0 +1,14 @@
+# Use an official SQL Server runtime as a parent image
+FROM mcr.microsoft.com/mssql/server:2019-latest
+
+# Set the environment variables for SQL Server
+ENV SA_PASSWORD=340$Uuxwp7Mcxo7Khy
+ENV ACCEPT_EULA=Y
+
+# Create a directory for BACPAC files
+WORKDIR /usr/src/bacpac-files
+
+# Copy the BACPAC file into the container
+COPY ssms_db.bacpac .
+
+# Run any additional commands or scripts as needed
